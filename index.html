@@ -3,15 +3,23 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Audio Visualizer</title>
+    <title>Music Monster</title>
     <link rel="stylesheet" href="./layout.css">
     <script src="./jquery-3.1.1.min.js"></script>
     <script src="./id3-minimized.js"></script>
   </head>
 
   <body>
-    <!--div id="file"></div-->
-    <input id="file" type="file">
+    <div class="upload-btn-area">
+      <label for="file" class="file-upload-label">
+        Audio File Upload
+        <input id="file" class="file-upload-input" type="file">
+      </label>
+      <label for="pause" class="pause-btn-label">
+        pause
+        <button id="pause" class="pause-btn"></button>
+      </label>
+    </div>
     <div id="song_image">
       <div id="picture"><img src=""></div>
     </div>
@@ -19,16 +27,6 @@
       <div id="title"></div>
       <div id="artist"></div>
       <div id="album"></div>
-    </div>
-
-    <div id="progress_bar_container">
-      <div id="current_time">0:00</div>
-
-      <div id="progress">
-        <div id="current_bar"></div>
-      </div>
-
-      <div id="duration">0:00</div>
     </div>
 
     <canvas id="visualizer"></canvas>

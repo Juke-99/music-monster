@@ -4,19 +4,16 @@ body {
   margin: 0px;
   overflow: hidden;
   background-color: #111111;
-}
-
-input {
-  position: absolute;
-  top: 10px;
-  left: 5px;
-  display: block;
-  z-index: 999;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 img {
   width: 100px;
   height: 100px;
+}
+
+canvas {
+  z-index: 1;
 }
 
 #visualizer {
@@ -92,4 +89,38 @@ img {
   right: 5%;
   height: 100%;
   background-color: #87cefa;
+}
+
+.file-upload-label {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  background: #44D62C;
+  padding: 20px 23px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 3px;
+  z-index: 1000;
+}
+
+.pause-btn-label {
+  position: absolute;
+  top: 20px;
+  left: 250px;
+  background: #44D62C;
+  padding: 20px 23px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 3px;
+  z-index: 1000;
+}
+
+.file-upload-label:hover, .pause-btn-label:hover {
+  background: #22b40a;
+  cursor: pointer;
+}
+
+.file-upload-input, .pause-btn {
+  display: none;
+  z-index: 1000;
 }
