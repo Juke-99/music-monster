@@ -63,6 +63,7 @@ Monster.prototype = {
   start() {
     var file = this.file;
     var fileReader = new FileReader();
+    var userAgent = window.navigator.userAgent.toLowerCase();
 
     fileReader.onload = e => {
       var that = this;
@@ -76,12 +77,21 @@ Monster.prototype = {
 
       if(audioContext === null) { return; };
 
-      audioContext.decodeAudioData(fileResult).then(buffer => {
-        that.buffer = buffer;
-        that.visualize(audioContext, buffer);
-      }, e => {
-        console.log(e);
-      });
+      if(userAgent.indexOf('safari') != -1) {
+        audioContext.decodeAudioData(fileResult, (buffer) => {
+          that.buffer = buffer;
+          that.visualize(audioContext, buffer);
+        }, e => {
+          console.log(e);
+        });
+      } else {
+        audioContext.decodeAudioData(fileResult).then(buffer => {
+          that.buffer = buffer;
+          that.visualize(audioContext, buffer);
+        }, e => {
+          console.log(e);
+        });
+      }
     };
 
     fileReader.readAsArrayBuffer(file);
@@ -137,11 +147,12 @@ Monster.prototype = {
       var base64String = "";
       var imgURL = "";
 
-      if(!(typeof tags.picture == 'undefined')) {
+      if(!(typeof tags.picture === 'undefined')) {
         for(var i = 0; i < tags.picture.data.length; i++) {
           base64String += String.fromCharCode(tags.picture.data[i]);
-          imgURL = 'data:' + tags.picture.format + ';base64,' + window.btoa(base64String);
         }
+
+        imgURL = 'data:' + tags.picture.format + ';base64,' + window.btoa(base64String);
       }
 
       $("#title").html(tags.title);
@@ -152,6 +163,8 @@ Monster.prototype = {
       $("#album").css("visibility", "visible");
       $("#picture img").attr('src', imgURL);
       $("#picture").css("visibility", "visible");
+
+      ID3.clearTags(that.url);
     },
     {
       tags: ["title", "artist", "album", "picture"],
